@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>857</ID>
+      <Description>"UNRELEASED EVENTS"</Description>
+      <Options moActivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Activate</Action>
+          <Keys>
+            <Key>118</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>854</ID>
+          <Description>"UNRELEASED CHALLENGE SERIES EVENTS"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+
+local addressStart = "F0000000"
+local addressEnd = "FFFFFFFF"
+
+[ENABLE]
+local AOB_TOP = "5F 63 34 2F 47 61 6D 65 70 6C 61 79 2F 43 68 61 6C 6C 65 6E 67 65 53 65 72 69 65 73 2F 53 30 32 2F 53 30 32 5F 32 00 49 44 5F 43 53 5F 43 4F 4D"
+local AOB_DDJ = "5F 63 34 2F 47 61 6D 65 70 6C 61 79 2F 43 68 61 6C 6C 65 6E 67 65 53 65 72 69 65 73 2F 53 30 31 2F 53 30 31 5F 35 00 49 44 5F 43 53 5F 43 4F 4D"
+local AOB_DVH = "5F 63 34 2F 47 61 6D 65 70 6C 61 79 2F 43 68 61 6C 6C 65 6E 67 65 53 65 72 69 65 73 2F 53 31 33 2F 53 31 33 5F 36 00 49 44 5F 43 53 5F 43 4F 4D"
+local AOB_CUT = "5F 63 34 2F 47 61 6D 65 70 6C 61 79 2F 43 68 61 6C 6C 65 6E 67 65 53 65 72 69 65 73 2F 53 30 31 2F 53 30 31 5F 33 00 00 2A 2A 43 55 54 2A 2A 00"
+
+local TOP_REF = 0
+local DDJ_REF = 0
+local DVH_REF = 0
+local CUT_REF = 0
+
+local MyMemscan2 = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan2, true)
+memscan_firstScan(MyMemscan2,soExactValue,vtByteArray,0,AOB_TOP,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan2)
+local address2 = memscan_getOnlyResult(MyMemscan2)
+
+if address2 ~= nil then
+   TOP_REF = getAddress(address2 - 0xB4)
+end
+
+local MyMemscan3 = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan3, true)
+memscan_firstScan(MyMemscan3,soExactValue,vtByteArray,0,AOB_DDJ,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan3)
+local address3 = memscan_getOnlyResult(MyMemscan3)
+
+if address3 ~= nil then
+   DDJ_REF = getAddress(address3 - 0xB4)
+end
+
+local MyMemscan4 = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan4, true)
+memscan_firstScan(MyMemscan4,soExactValue,vtByteArray,0,AOB_DVH,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan4)
+local address4 = memscan_getOnlyResult(MyMemscan4)
+
+if address4 ~= nil then
+   DVH_REF = getAddress(address4 - 0xC0)
+end
+
+local MyMemscan5 = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan5, true)
+memscan_firstScan(MyMemscan5,soExactValue,vtByteArray,0,AOB_CUT,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan5)
+local address5 = memscan_getOnlyResult(MyMemscan5)
+
+if address5 ~= nil then
+   CUT_REF = getAddress(address5 - 0xB4)
+end
+
+local challenge_pack_string = "43 4F 41 53 54 41 4C 20 52 55 53 48 00 43 6F 61 73 74 61 6C 20 52 75 73 68 00 52 6F 61 64 27 73 20 63 6C 6F 73 65 64 20 61 6E 64 20 74 68 65 72"
+
+local MyMemscan6 = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan6, true)
+memscan_firstScan(MyMemscan6,soExactValue,vtByteArray,0,challenge_pack_string,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan6)
+local address6 = memscan_getOnlyResult(MyMemscan6)
+
+if address6 ~= nil then
+    writeString(address6,"UNRELEASED  ")
+end
+
+local AOB_S01 = "5F 63 34 2F 47 61 6D 65 70 6C 61 79 2F 43 68 61 6C 6C 65 6E 67 65 53 65 72 69 65 73 2F 53 30 31 00 49 44 5F 43 53 5F 55 4E 4C 4F 43 4B 5F 43 48"
+
+local MyMemscan = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan, true)
+memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB_S01,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan)
+local address = memscan_getOnlyResult(MyMemscan)
+
+if address ~= nil then
+    local challenge_1 = address - 0x14
+    local challenge_2 = address - 0x10
+    local challenge_3 = address - 0xC
+    local challenge_4 = address - 0x8
+    local challenge_5 = address - 0x4
+
+    local packtex = address + 0x65
+
+    writeInteger(challenge_1,DDJ_REF)
+    writeInteger(challenge_2,DVH_REF)
+    writeInteger(challenge_3,TOP_REF)
+    writeInteger(challenge_4,CUT_REF)
+
+    writeString(packtex,"_c4/UI/Textures/Playlist/PlaylistGraphic_001")
+
+    print "Hidden Events Swap Complete!"
+end
+
+[DISABLE]
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>856</ID>
+          <Description>"DISABLE RESET OOB"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+007FAA8C:
+nop
+nop
+nop
+
+[DISABLE]
+007FAA8C:
+fld dword ptr [ecx+68]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>473</ID>
+          <Description>"WRONG WAY RESPAWN DISABLE"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+nop
+nop
+nop
+nop
+nop
+nop
+
+originalcode:
+//fld dword ptr [esi+00002924]
+
+exit:
+jmp returnhere
+
+"Need for Speed The Run.exe"+408915:
+jmp newmem
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"Need for Speed The Run.exe"+408915:
+fld dword ptr [esi+00002924]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"UNRELEASED EVENTS STRING SWAP"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+
+function DEC_HEX(IN)
+    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
+    while IN&gt;0 do
+        I=I+1
+        IN,D=math.floor(IN/B),math.mod(IN,B)+1
+        OUT=string.sub(K,D,D)..OUT
+    end
+    return OUT
+end
+
+function Split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
+function AOBtoDEC(str)
+    split_string = Split(str, " ")
+    local hex = ""
+    for i=1,#split_string do
+        hex = hex .. split_string[#split_string+1-i]
+    end
+    return(tonumber(hex,16))
+end
+
+function hexByteString(addressdec)
+    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
+    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
+    return(hexByteS)
+end
+
+local addressStart = "F0000000" --First Vehicle of Customization Template
+local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
+
+[ENABLE]
+
+local AOB = "4D 41 4C 00 52 45 41 4C 49 53 54 49 43 00 53 45 4C 45 43 54 20 41 20 50 4C 41 59 4C 49 53 54 00"
+local MyMemscan = createMemScan()
+memscan_returnOnlyOneResult(MyMemscan, true)
+memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
+memscan_waitTillDone(MyMemscan)
+local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
+if address ~= nil then
+    local string_end = {0x00}
+    writeString(address+0x20,"UNRELEASED EVENTS")
+    writeBytes(address+0x31,string_end)
+    print "String Swap Complete Complete!"
+else
+    print "String Swap Failed!"
+end
+
+
+[DISABLE]
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>750</ID>
+          <Description>"CHALLENGE SERIES CAR SELECT HOOK"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,2048)
+alloc(cshook,$500)
+registersymbol(cshook)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+push ebx
+lea ebx,[esi+48]
+mov [cshook],ebx
+pop ebx
+jmp originalcode
+
+originalcode:
+mov ecx,[esi+48]
+push 00
+
+exit:
+jmp returnhere
+
+"Need for Speed The Run.exe"+48D46C:
+jmp newmem
+returnhere:
+
+[DISABLE]
+dealloc(*)
+unregistersymbol(*)
+"Need for Speed The Run.exe"+48D46C:
+mov ecx,[esi+48]
+push 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>858</ID>
+          <Description>"TUNNEL OF PAIN CHECK"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+[ENABLE]
+print "TOP Check Enabled"
+
+function topcCheck()
+    if readPointer("[cshook]") ~= nil then
+        if readInteger(readInteger("[cshook]")+0xD7) == 878670437 and --er_4
+           readInteger("[cshook]+0xB4") == 845099568 then --02_2
+           autoAssemble([[
+              0121D23B:
+              nop
+              nop
+              nop
+           ]])
+        else
+           autoAssemble([[
+              0121D23B:
+              cmp [esi],dx
+           ]])
+        end
+    end
+end
+
+topc = createTimer(nil)
+timer_onTimer(topc,topcCheck)
+timer_setInterval(topc, 100)
+timer_setEnabled(topc, true)
+
+[DISABLE]
+timer_setEnabled(topc, false)
+print "TOP Check Disabled"
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
